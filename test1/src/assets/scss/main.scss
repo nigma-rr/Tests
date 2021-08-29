@@ -1,0 +1,82 @@
+@import "./utils/vars.scss";
+@import "./utils/fonts.scss";
+@import "./utils/reset.scss";
+
+html {
+    font-size: 10px;
+}
+
+body {
+    font-family: $defaultFont;
+    font-weight: $defaultFontWeight;
+    color: $defaultColor;
+    font-size: $defaultFontSize;
+    background-color: #F9F9F9;
+}
+
+.main {
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1110px;
+    margin: 0 auto;
+}
+
+.element-interaction {
+    transition: 0.4s ease;
+    cursor: pointer;
+    &:hover {
+        opacity: 0.8;
+    }
+    &:active {
+        opacity: 0.6;
+    }
+}
+
+.h2-title {
+    font-family: $accentFont;
+    font-weight: bold;
+    font-size: 3rem;
+    line-height: 4.1rem;
+    text-align: center;
+}
+
+
+.social {
+    padding-top: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.social-item {
+    &:not(:last-child) {
+        margin-right: 30px;
+    }
+}
+
+.link-reset {
+    text-decoration: none;
+    color: $defaultColor;
+}
+
+.button-style {
+    margin: 0 auto;
+    text-decoration: none;
+    display: block;
+    border: none;
+    background: $btn_default_background_color;
+    font-size: $btn_default_font_size;
+    line-height: 2.1rem;
+    text-transform: uppercase;
+    padding: $btn_default_padding;
+    color: $btn_default_font_color;
+    cursor: pointer;
+}
+
+@media (max-width: 1110px) {
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
