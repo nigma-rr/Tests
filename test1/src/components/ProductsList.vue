@@ -3,55 +3,23 @@
         <div class="container">
             <div class="product__filters">
                 <div class="product__filter-wrap">
-                    <select name="brand" class="product__filter-select element-interaction" v-model="filters.brand" @change="changeFilter">
-                        <option value="" selected>Бренд</option>
-                        <option value="Brand One">Brand One</option>
-                        <option value="Brand Another">Brand Another</option>
-                    </select>
-                </div>
-                <div class="product__filter-wrap">
-                    <select name="price" class="product__filter-select element-interaction" v-model="filters.price" @change="changeFilter">
+                    <select name="price" class="product__filter-select element-interaction" v-model="filters.price" @change="setWithPriceSort($event)">
                         <option value="" selected>Цена</option>
                         <option value="min">Дороже</option>
                         <option value="max">Дешевле</option>
                     </select>
                 </div>
                 <div class="product__filter-wrap">
-                    <select name="who" class="product__filter-select element-interaction" v-model="filters.who" @change="changeFilter">
-                        <option value="" selected>Для кого</option>
-                        <option value="woman">Женщине</option>
-                        <option value="man">Мужчине</option>
-                    </select>
-                </div>
-                <div class="product__filter-wrap">
-                    <select name="collection" class="product__filter-select element-interaction" v-model="filters.collection" @change="changeFilter">
-                        <option value="" selected>Коллекция</option>
-                        <option value="new">Новая</option>
-                        <option value="old">Старая</option>
-                    </select>
-                </div>
-                <div class="product__filter-wrap">
-                    <select name="season" class="product__filter-select element-interaction" v-model="filters.season" @change="changeFilter">
-                        <option value="" selected>Сезон</option>
-                        <option value="summer">Лето</option>
-                        <option value="winter">Зима</option>
-                    </select>
-                </div>
-                <div class="product__filter-wrap">
-                    <select name="event" class="product__filter-select element-interaction" v-model="filters.event" @change="changeFilter">
-                        <option value="" selected>Событие</option>
-                        <option value="anniversary">Юбилей</option>
-                        <option value="new_year">Новый год</option>
+                    <select name="who" class="product__filter-select element-interaction" v-model="filters.who" @change="setProductsFromCategory($event)">
+                      <option value="" selected>Категория</option>
+                      <option :value="category" v-for="(category, index) in getCategories()">{{category}}</option>
                     </select>
                 </div>
             </div>
             <div class="products__list">
                 <div class="products__item" :key="index" v-for="(product, index) in products(productsOffset)">
-                    <ProductCard 
-                        :title="product.title" 
-                        :imageUrl="product.image"
-                        :productType="product.product_type"
-                        :price="product.price"
+                    <ProductCard
+                      :product = product
                     />
                 </div>
             </div>
@@ -74,6 +42,7 @@
     }
 
     .products__item {
+        text-decoration: none;
         &::before {
             content: '';
             height: 1px;
@@ -181,10 +150,14 @@ import { mapActions, mapGetters } from 'vuex'
         },
         methods: {
             ...mapActions({
-                load: 'products/loadProducts'
+                load: 'products/loadProducts',
+                loadCategories: 'products/loadCategories',
+                setProductsFromCategory: 'products/setProductsFromCategory',
+                setWithPriceSort: 'products/setWithPriceSort',
             }),
             ...mapGetters({
-                get: 'products/getProducts'
+                get: 'products/getProducts',
+                getCategories: 'products/getCategories'
             }),
             getArrRange(array, range, part) {
                 let start = range * (part - 1)
@@ -194,19 +167,13 @@ import { mapActions, mapGetters } from 'vuex'
             products() {
                 return this.getArrRange(this.get(), this.productsOffset, 1)
             },
-            changeFilter() {
-                this.$load(async() => {
-                    await this.$api.filter.changeFilter('test-filter', {
-                        filters: this.filters
-                    })
-                })
-            }
         },
         created: function() {
             this.load()
+            this.loadCategories()
         },
         computed: {
-            
+
         }
     }
 </script>

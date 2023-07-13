@@ -1,7 +1,7 @@
 export default function(instance) {
     return {
-        changeFilter(url, payload) {
-            return instance.post(url, payload)
+        async changeFilter(url, payload) {
+            return await instance.get(url)
         }
     }
 }

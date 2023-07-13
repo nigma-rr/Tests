@@ -19,7 +19,7 @@
                         <label for="header__search" class="header__search-icon element-interaction"><svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.0002 17L13.8462 11.846C14.799 10.3979 15.1807 8.64774 14.9172 6.93442C14.6538 5.22111 13.764 3.66648 12.4201 2.57154C11.0762 1.47659 9.37391 0.919227 7.64269 1.00735C5.91148 1.09547 4.27453 1.82281 3.04879 3.04855C1.82305 4.27429 1.09571 5.91123 1.00759 7.64245C0.919471 9.37366 1.47684 11.076 2.57178 12.4199C3.66672 13.7637 5.22135 14.6535 6.93467 14.917C8.64799 15.1804 10.3981 14.7988 11.8462 13.846L17.0002 19L19.0002 17ZM3.00022 7.99998C3.00022 5.24298 5.24322 2.99998 8.00022 2.99998C10.7572 2.99998 13.0002 5.24298 13.0002 7.99998C13.0002 10.757 10.7572 13 8.00022 13C5.24322 13 3.00022 10.757 3.00022 7.99998Z" fill="white"/></svg></label>
                         <input placeholder="Поиск" class="header__search-input" id="header__search" type="search" name="s" title="Search">
                     </div>
-                    <router-link class="header__login element-interaction" to="/login">Вход/Регистрация</router-link>
+                    <Cart :btnClass="'header__login element-interaction'"></Cart>
                     <div class="header__icons">
                         <router-link to="/cabinet" class="header__icon header__icon--profile element-interaction">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 4C13.0609 4 14.0783 4.42143 14.8284 5.17157C15.5786 5.92172 16 6.93913 16 8C16 9.06087 15.5786 10.0783 14.8284 10.8284C14.0783 11.5786 13.0609 12 12 12C10.9391 12 9.92172 11.5786 9.17157 10.8284C8.42143 10.0783 8 9.06087 8 8C8 6.93913 8.42143 5.92172 9.17157 5.17157C9.92172 4.42143 10.9391 4 12 4ZM12 14C16.42 14 20 15.79 20 18V20H4V18C4 15.79 7.58 14 12 14Z" fill="white"/></svg>
@@ -44,7 +44,7 @@
                         <router-link class="header__nav-item element-interaction" to="1">Контрагентам</router-link>
                         <router-link class="header__nav-item element-interaction" to="2">Дизайнерам</router-link>
                         <router-link class="header__nav-item element-interaction" to="3">Вакансии</router-link>
-                        <router-link class="header__nav-item element-interaction" to="/login">Вход/Регистрация</router-link>
+                        <Cart :btnClass="'header__nav-item element-interaction'"></Cart>
                     </nav>
                     <div class="header__icons">
                         <router-link to="/cabinet" class="header__icon header__icon--profile element-interaction">
@@ -88,12 +88,15 @@
 </template>
 
 <script>
-    export default {
-        data: function() {
+import Cart from "../components/Cart";
+
+export default {
+  components: {Cart},
+  data: function() {
             return {
                 burgerShow: false
             }
-        }
+        },
     }
 </script>
 
@@ -142,6 +145,9 @@
         color: #fff;
         transition: 0.4s ease;
         line-height: 150%;
+        background: transparent;
+        border: none;
+        padding: 0;
         &:not(:last-child) {
             margin-right: 40px;
         }
@@ -179,26 +185,30 @@
         align-items: center;
         margin-right: 40px;
         text-decoration: none;
+        background: transparent;
+        border: none;
+        padding: 0;
+        height: 100%;
     }
 
     .header__icons {
         display: flex;
         align-items: center;
     }
-    
+
     .header__icon {
         display: inline-block;
         &:not(:last-child) {
             margin-right: 25px;
         }
     }
-    
+
     .burger {
         display: none;
         cursor: pointer;
     }
 
-    @media (max-width:768px) {  
+    @media (max-width:768px) {
         .header{
             padding: 30px 35px;
             .container {
